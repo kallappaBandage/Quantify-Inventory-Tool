@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantify Inventory Tool</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+        .table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        .table td {
+            text-align: center;
+        }
+        .btn {
+            border-radius: 5px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2 class="text-center text-primary fw-bold mb-4"> Quantify Inventory Tool</h2>
+
+        <!-- Stock Form -->
+        <div class="card p-4">
+            <h4 class="text-center text-secondary">Manage Stock</h4>
+            <form id="stockForm">
+                <input type="hidden" name="stockId"> <!-- Hidden field for stock ID -->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Product Name:</label>
+                        <input type="text" name="productName" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Stock Added Date:</label>
+                        <input type="date" name="stockAddedDate" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Stock Quantity:</label>
+                        <input type="number" name="stockQty" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Stock Per Qty Price:</label>
+                        <input type="number" name="stockPerQtyPrice" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Stock Sell Per Qty Price:</label>
+                        <input type="number" name="stockSellPerQtyPrice" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Stock Category:</label>
+                        <input type="text" name="stockCategory" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Stock Supplier Name:</label>
+                        <input type="text" name="stockSupplierName" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Stock Description:</label>
+                        <textarea name="stockDescription" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" id="submitBtn" class="btn btn-success px-4"> Add Stock</button>
+                    <button type="button" id="updateBtn" class="btn btn-warning px-4" style="display: none;"> Update Stock</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Stock Table -->
+        <div class="mt-5">
+            <h4 class="text-center text-secondary">Stock List</h4>
+            <table class="table table-striped table-hover mt-3">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Stock Qty</th>
+                        <th>Price per Qty</th>
+                        <th>Category</th>
+                        <th>Supplier</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="stockTable">
+                    <% stocks.forEach((stock) => { %>
+                        <tr data-id="<%= stock._id %>">
+                            <td><%= stock.productName %></td>
+                            <td><%= stock.stockQty %></td>
+                            <td>₹<%= stock.stockPerQtyPrice %></td>
+                            <td><%= stock.stockCategory %></td>
+                            <td><%= stock.stockSupplierName %></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
